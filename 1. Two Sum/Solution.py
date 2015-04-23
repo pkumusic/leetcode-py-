@@ -11,7 +11,8 @@ Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2
 """
 class Solution:
-    # @return a tuple, (index1, index2)where index1 < index2
+    # @return a tuple, (index1, index2)
+where index1 < index2
     """BIdea 1: Brute-Force
 	Keeping the array unsorted.
 	Iterate the total array. In each iteration, iterate the array and find the remaining number.
@@ -24,7 +25,8 @@ class Solution:
                 return (num.index(i), remain.index(target-i))
 
 class Solution2:
-    # @return a tuple, (index1, index2)where index1 < index2
+    # @return a tuple, (index1, index2)
+where index1 < index2
     """Idea 2: Hash map
 	Add all the integers in the array to a hash map. O(n) 
 	（Actually we don't need this pre-process. we can add the element while in the searching operation）
@@ -41,15 +43,44 @@ class Solution2:
             process[num[index]]=index
 
             
+class Solution3:
+    # @return a tuple, (index1, index2)
+where index1 < index2
 """		
 Idea 3: Sort and Binary Search
 	1.Sort the numbers.O(nlogn)
 	2.Iteration the numbers and use binary search to find the remaining. O(nlogn)
  	
  	Complexity Analysis: O(nlogn)
- 	Leetcode Result: Passed
- *
- */
+ 	Leetcode Result: Time Out for Python! But in JAVA it's passed! Strange
 """
+    def twoSum(self,num,target):
+        numbers = sorted(num) 
+        for index in range(len(numbers)):
+            remaining = target - numbers[index]
+            left, right = index+1, len(numbers)
+            mid = (left+right)/2
+            while(left is not mid):
+                if numbers[mid] == remaining:
+                    #success. two numbers are numbers[index], remaining
+                    answer1 = num.index(numbers[index])
+                    answer2 = num.index(remaining)
+                    if(answer1 > answer2):
+                        answer1, answer2 = answer2, answer1
+                    return (answer1+1,answer2+1)
+                elif numbers[mid] < remaining:
+                    left = mid
+                    mid = (left+right)/2
+                else:
+                    right = mid
+                    mid = (left+right)/2
+                    
+        return None
+                    
+                    
+                    
+            
+        
+
 
 
